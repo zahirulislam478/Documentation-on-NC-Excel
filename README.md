@@ -58,7 +58,7 @@ function DownloadExcelFile() {
 }
 ```
 
-![Alt text](Showing_Scientific_Notation)
+![Alt text](Showing_Scientific_Notation.png)
 
 
 ## C# Code (ASP.NET MVC)
