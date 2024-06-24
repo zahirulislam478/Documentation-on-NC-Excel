@@ -105,7 +105,7 @@ Renames a column in the DataTable from `oldName` to `newName`.
 - `oldName`: The current name of the column to be renamed.
 - `newName`: The new name to assign to the column.
 
-
+```csharp 
 [HttpPost]
 public ActionResult GenerateExcel(string postArrayUI)
 {
