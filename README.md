@@ -280,17 +280,6 @@ In the updated version, the `ContactNo` column is handled as text to avoid displ
 ## 1. Approach and Methodology
 
 ### Previous Version (Using table2excel Library)
-
-**Front End Only:**
-- The entire process of gathering data and generating the Excel file happens on the client side.
-- Data is collected from the HTML table, appended to a hidden table, and converted to an Excel file using the table2excel library.
-- No server interaction is involved; everything is handled locally within the user's browser.
-
-# Differences Between the Two Documentations
-
-## 1. Approach and Methodology
-
-### Previous Version (Using table2excel Library)
 - **Front End Only:** Data gathering and Excel file generation occur entirely on the client side.
 - **Simplicity:** Relies on client-side JavaScript and a third-party plugin (`table2excel`) for file creation.
 
@@ -339,3 +328,4 @@ In the updated version, the `ContactNo` column is handled as text to avoid displ
 ## Summary
 
 The previous version utilizes client-side scripting and a third-party library (`table2excel`) for Excel file generation, while the updated version implements a more sophisticated approach with server-side processing using ASP.NET MVC and the EPPlus library. This update enhances security, scalability, and flexibility for handling data and generating Excel files, supported by comprehensive documentation of both client-side and server-side workflows.
+
