@@ -28,9 +28,39 @@ This function collects data from an HTML table, serializes it into JSON, and sub
    - Add the serialized `postArrayUI` as a hidden input field.
    - Append the form to the body, submit it, and then remove it.
 
+#### JavaScript Code:
+
+```javascript
+function DownloadExcelFile() {
+    var postArrayUI = [];
+    // Iterate through each row of the table
+    $("#dataTable tr").not(":first").each(function () {
+        var isChked = $(this).find(".singleCheck").is(':checked');
+        if (isChked) {
+            var singleObj = {
+                ContactNo: $(this).find("td:eq(7)").text(),
+                SmsText: $(this).find("td:eq(5)").text()
+            };
+            postArrayUI.push(singleObj);
+        }
+    });
+
+    if (postArrayUI.length === 0) {
+        swal('Sorry!!', 'No data found', 'error');
+        return false;
+    }
+
+    var urlToCall = "/NC/AttendanceNotice/GenerateExcel";
+    var form = $('<form method="POST" action="' + urlToCall + '">');
+    form.append($('<input type="hidden" name="postArrayUI" value=\'' + JSON.stringify(postArrayUI) + '\'>'));
+    $('body').append(form);
+    form.submit();
+    form.remove();
+}
+
 
 ## C# Code (ASP.NET MVC)
-
+```markdown
 ### Endpoint: `/NC/AttendanceNotice/GenerateExcel`
 
 This endpoint handles the request to generate an Excel file from the submitted data.
@@ -75,36 +105,6 @@ Renames a column in the DataTable from `oldName` to `newName`.
 - `table`: The DataTable in which the column needs to be renamed.
 - `oldName`: The current name of the column to be renamed.
 - `newName`: The new name to assign to the column.
-
-#### JavaScript Code:
-
-```javascript
-function DownloadExcelFile() {
-    var postArrayUI = [];
-    // Iterate through each row of the table
-    $("#dataTable tr").not(":first").each(function () {
-        var isChked = $(this).find(".singleCheck").is(':checked');
-        if (isChked) {
-            var singleObj = {
-                ContactNo: $(this).find("td:eq(7)").text(),
-                SmsText: $(this).find("td:eq(5)").text()
-            };
-            postArrayUI.push(singleObj);
-        }
-    });
-
-    if (postArrayUI.length === 0) {
-        swal('Sorry!!', 'No data found', 'error');
-        return false;
-    }
-
-    var urlToCall = "/NC/AttendanceNotice/GenerateExcel";
-    var form = $('<form method="POST" action="' + urlToCall + '">');
-    form.append($('<input type="hidden" name="postArrayUI" value=\'' + JSON.stringify(postArrayUI) + '\'>'));
-    $('body').append(form);
-    form.submit();
-    form.remove();
-}
 
 ```csharp
 [HttpPost]
@@ -219,6 +219,3 @@ private void AddDataRows(ExcelWorksheet worksheet, DataTable table)
         rowIndex++;
     }
 }
-
-
-
