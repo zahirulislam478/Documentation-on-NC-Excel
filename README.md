@@ -29,7 +29,7 @@ This function collects data from an HTML table, serializes it into JSON, and sub
    - Append the form to the body, submit it, and then remove it.
 
 #### JavaScript Code:
-
+```javascript
 function DownloadExcelFile() {
     var postArrayUI = [];
     // Iterate through each row of the table
@@ -56,6 +56,8 @@ function DownloadExcelFile() {
     form.submit();
     form.remove();
 }
+
+##
 
 
 ## C# Code (ASP.NET MVC)
