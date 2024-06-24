@@ -30,7 +30,6 @@ This function collects data from an HTML table, serializes it into JSON, and sub
 
 #### JavaScript Code:
 
-```javascript
 function DownloadExcelFile() {
     var postArrayUI = [];
     // Iterate through each row of the table
@@ -60,7 +59,7 @@ function DownloadExcelFile() {
 
 
 ## C# Code (ASP.NET MVC)
-```markdown
+
 ### Endpoint: `/NC/AttendanceNotice/GenerateExcel`
 
 This endpoint handles the request to generate an Excel file from the submitted data.
@@ -106,7 +105,7 @@ Renames a column in the DataTable from `oldName` to `newName`.
 - `oldName`: The current name of the column to be renamed.
 - `newName`: The new name to assign to the column.
 
-```csharp
+
 [HttpPost]
 public ActionResult GenerateExcel(string postArrayUI)
 {
