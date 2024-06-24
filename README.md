@@ -57,8 +57,7 @@ function DownloadExcelFile() {
     form.remove();
 }
 ```
-
-<img width="941" alt="Showing_Scientific_Notation" src="https://github.com/zahirulislam478/Documentation-on-NC-Excel/assets/35406920/6d1d6e7e-4935-45c2-a532-a0221e598edf">
+<img width="943" alt="1" src="https://github.com/zahirulislam478/Documentation-on-NC-Excel/assets/35406920/5a47661b-b048-4413-9de4-320e0f3f9453">
 
 
 ## C# Code (ASP.NET MVC)
@@ -261,6 +260,9 @@ function DownloadExcelFile() {
     });
 };
 ```
+
+<img width="948" alt="2" src="https://github.com/zahirulislam478/Documentation-on-NC-Excel/assets/35406920/6f6cfe16-a17c-47af-a87e-2aa1376afd91">
+
 
 # Differences Between the Two Documentations
 
