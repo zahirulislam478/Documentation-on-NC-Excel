@@ -57,3 +57,121 @@ function DownloadExcelFile() {
     form.submit();
     form.remove();
 }
+
+
+
+#### C# Code:
+
+```c#
+[HttpPost]
+public ActionResult GenerateExcel(string postArrayUI)
+{
+    try
+    {
+        // Deserialize the input JSON string to a List of GetDataFromUIViewModel
+        var data = JsonConvert.DeserializeObject<List<GetDataFromUIViewModel>>(postArrayUI);
+
+        string filename = "Attendance Notice List.xlsx";
+        string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+        using (var excel = new ExcelPackage())
+        {
+            var worksheet = excel.Workbook.Worksheets.Add("Sheet1");
+
+            // Convert list to DataTable
+            DataTable dataTable = ListExtensions.ToDataTable(data);
+            dataTable.TableName = "Selected";
+
+            // Select only necessary columns
+            var view = new DataView(dataTable);
+            DataTable filteredTable = view.ToTable(false, "ContactNo", "SmsText");
+
+            // Rename columns
+            RenameColumn(filteredTable, "ContactNo", "Mobile No.");
+            RenameColumn(filteredTable, "SmsText", "Message Text");
+
+            // Add header row
+            AddHeaderRow(worksheet, filteredTable);
+
+            // Add data rows
+            AddDataRows(worksheet, filteredTable);
+
+            // Autofit all columns
+            worksheet.Cells.AutoFitColumns();
+
+            // Save the Excel file to a memory stream
+            using (var memoryStream = new MemoryStream())
+            {
+                excel.SaveAs(memoryStream);
+                memoryStream.Position = 0;
+
+                var fileContent = memoryStream.ToArray();
+                return File(fileContent, contentType, filename);
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        ex.ToTextFileLog();
+        ex.ToMssqlLog();
+        throw ex;
+    }
+}
+
+private void RenameColumn(DataTable table, string oldName, string newName)
+{
+    if (table.Columns.Contains(oldName))
+    {
+        table.Columns[oldName].ColumnName = newName;
+    }
+}
+
+private void AddHeaderRow(ExcelWorksheet worksheet, DataTable table)
+{
+    int colIndex = 1;
+
+    foreach (DataColumn column in table.Columns)
+    {
+        var cell = worksheet.Cells[1, colIndex];
+
+        // Setting the background color of header cells to Gray
+        cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+        cell.Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+        // Setting borders of header cells
+        cell.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+        cell.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+        cell.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+        cell.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+        // Setting the value of header cell
+        cell.Value = column.ColumnName;
+
+        colIndex++;
+    }
+}
+
+private void AddDataRows(ExcelWorksheet worksheet, DataTable table)
+{
+    int rowIndex = 2;
+
+    foreach (DataRow row in table.Rows)
+    {
+        int colIndex = 1;
+
+        foreach (DataColumn column in table.Columns)
+        {
+            var cell = worksheet.Cells[rowIndex, colIndex];
+            cell.Value = row[column.ColumnName].ToString();
+
+            // Setting borders of data cells
+            cell.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            cell.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+            cell.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            cell.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+            colIndex++;
+        }
+        rowIndex++;
+    }
+}
