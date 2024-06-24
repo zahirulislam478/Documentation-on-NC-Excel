@@ -1,4 +1,4 @@
-# Project Documentation
+# Documentation
 
 ## Overview
 
@@ -219,4 +219,43 @@ private void AddDataRows(ExcelWorksheet worksheet, DataTable table)
         rowIndex++;
     }
 }
+```
+
+
+# Function: DownloadExcelFile()
+
+This function collects data from an HTML table, constructs a new hidden table with the selected data, and then uses the jquery-table2excel library to download the data as an Excel file.
+
+## Table Row Iteration
+
+1. Iterate through each row of the table (#dataTable), excluding the header row.
+2. For each row:
+    - Extract `contactNo` from the 8th cell (`td:eq(7)`).
+    - Extract `smsText` from the 6th cell (`td:eq(5)`).
+    - Check if the checkbox (`.singleCheck`) in the row is checked.
+    - If checked, create a new row (`<tr>`) and append it to the hidden table (#DownloadSMSTable).
+
+## Excel File Download
+
+- Use the table2excel plugin to convert the hidden table to an Excel file and trigger a download with the filename `SendSMSFile.xls`.
+
+## JavaScript Code
+
+```javascript
+function DownloadExcelFile() {
+    $("#dataTable tr").not(":first").each(function () {
+        var contactNo = $(this).find("td:eq(7)").text();
+        var smsText = $(this).find("td:eq(5)").text();
+        if ($(this).find(".singleCheck").prop('checked') == true) {
+            tr = $('<tr/>');
+            tr.append("<td>" + contactNo + "</td>");
+            tr.append("<td>" + smsText + "</td>");
+            $('#DownloadSMSTable').append(tr);
+        }
+    });
+    $("#DownloadSMSTable").table2excel({
+        exclude: '.exclude',
+        filename: 'SendSMSFile.xls'
+    });
+};
 ```
