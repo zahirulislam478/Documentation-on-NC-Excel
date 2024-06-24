@@ -61,8 +61,6 @@ function DownloadExcelFile() {
 }
 
 
-
-
 ## C# Code (ASP.NET MVC)
 
 ### Endpoint: `/NC/AttendanceNotice/GenerateExcel`
@@ -109,9 +107,6 @@ Renames a column in the DataTable from `oldName` to `newName`.
 - `table`: The DataTable in which the column needs to be renamed.
 - `oldName`: The current name of the column to be renamed.
 - `newName`: The new name to assign to the column.
-
-
-#### C# Code:
 
 ```csharp
 [HttpPost]
@@ -226,4 +221,6 @@ private void AddDataRows(ExcelWorksheet worksheet, DataTable table)
         rowIndex++;
     }
 }
+
+
 
