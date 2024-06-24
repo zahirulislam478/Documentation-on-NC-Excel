@@ -57,6 +57,10 @@ function DownloadExcelFile() {
     form.remove();
 }
 ```
+### Handling of Contact Numbers
+
+In the updated version, the `ContactNo` column is handled as text to avoid displaying contact numbers in scientific notation. This is achieved by explicitly setting the format for the `ContactNo` cells.
+
 <img width="943" alt="1" src="https://github.com/zahirulislam478/Documentation-on-NC-Excel/assets/35406920/5a47661b-b048-4413-9de4-320e0f3f9453">
 
 
