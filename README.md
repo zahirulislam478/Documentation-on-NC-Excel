@@ -58,7 +58,7 @@ function DownloadExcelFile() {
 }
 ```
 
-![screenshot](Showing_Scientific_Notation.png)
+<img width="941" alt="Showing_Scientific_Notation" src="https://github.com/zahirulislam478/Documentation-on-NC-Excel/assets/35406920/6d1d6e7e-4935-45c2-a532-a0221e598edf">
 
 
 ## C# Code (ASP.NET MVC)
