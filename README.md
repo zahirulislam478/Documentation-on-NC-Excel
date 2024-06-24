@@ -57,55 +57,38 @@ function DownloadExcelFile() {
     form.remove();
 }
 
-##
 
-
-## C# Code (ASP.NET MVC)
-
-### Endpoint: `/NC/AttendanceNotice/GenerateExcel`
-
+C# Code (ASP.NET MVC)
+Endpoint: /NC/AttendanceNotice/GenerateExcel
 This endpoint handles the request to generate an Excel file from the submitted data.
 
-### Action Method: `GenerateExcel(string postArrayUI)`
+Action Method: GenerateExcel(string postArrayUI)
+This method is responsible for generating the Excel file from the data received in the postArrayUI parameter.
 
-This method is responsible for generating the Excel file from the data received in the `postArrayUI` parameter.
+Steps:
+Deserialize JSON:
 
-#### Steps:
+Deserializes the input JSON string (postArrayUI) into a list of GetDataFromUIViewModel.
+Excel Package Creation:
 
-1. **Deserialize JSON**:
-   - Deserializes the input JSON string (`postArrayUI`) into a list of `GetDataFromUIViewModel`.
+Creates a new Excel package and adds a worksheet named "Sheet1".
+DataTable Conversion:
 
-2. **Excel Package Creation**:
-   - Creates a new Excel package and adds a worksheet named "Sheet1".
+Converts the list to a DataTable.
+Filters the DataTable to include only "ContactNo" and "SmsText" columns.
+Worksheet Population:
 
-3. **DataTable Conversion**:
-   - Converts the list to a DataTable.
-   - Filters the DataTable to include only "ContactNo" and "SmsText" columns.
+Calls AddHeaderRow() to add a header row to the worksheet.
+Calls AddDataRows() to populate the worksheet with data rows.
+File Creation and Return:
 
-4. **Worksheet Population**:
-   - Calls `AddHeaderRow()` to add a header row to the worksheet.
-   - Calls `AddDataRows()` to populate the worksheet with data rows.
+Saves the Excel file to a memory stream.
+Returns the file content as a downloadable file with the specified content type and filename.
+Helper Methods:
 
-5. **File Creation and Return**:
-   - Saves the Excel file to a memory stream.
-   - Returns the file content as a downloadable file with the specified content type and filename.
-
-6. **Helper Methods**:
-   - `RenameColumn(DataTable table, string oldName, string newName)`: Renames a column in the DataTable from `oldName` to `newName`.
-   - `AddHeaderRow(ExcelWorksheet worksheet, DataTable table)`: Adds a header row to the worksheet with styled header cells.
-   - `AddDataRows(ExcelWorksheet worksheet, DataTable table)`: Adds data rows to the worksheet and styles the cells.
-
-## Helper Methods
-
-### `RenameColumn(DataTable table, string oldName, string newName)`
-
-Renames a column in the DataTable from `oldName` to `newName`.
-
-#### Parameters:
-
-- `table`: The DataTable in which the column needs to be renamed.
-- `oldName`: The current name of the column to be renamed.
-- `newName`: The new name to assign to the column.
+RenameColumn(DataTable table, string oldName, string newName): Renames a column in the DataTable from oldName to newName.
+AddHeaderRow(ExcelWorksheet worksheet, DataTable table): Adds a header row to the worksheet with styled header cells.
+AddDataRows(ExcelWorksheet worksheet, DataTable table): Adds data rows to the worksheet and styles the cells.
 
 ```csharp 
 [HttpPost]
