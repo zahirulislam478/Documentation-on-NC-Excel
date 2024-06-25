@@ -1,10 +1,10 @@
 # Documentation
 
-## Overview
+## Overview(Updated Version)
 
 This project implements functionality to generate and download an Excel file using data from an HTML table. The solution consists of JavaScript code on the frontend to gather the data and ASP.NET MVC code on the backend to process the data and generate the Excel file using the EPPlus library.
 
-## JavaScript Code
+## JavaScript
 
 ### Function: `DownloadExcelFile()`
 
@@ -66,7 +66,7 @@ In the previous version, while downloading the Excel file, contact numbers were 
 <img width="943" alt="1" src="https://github.com/zahirulislam478/Documentation-on-NC-Excel/assets/35406920/5a47661b-b048-4413-9de4-320e0f3f9453">
 
 
-## C# Code (ASP.NET MVC)
+## C# (ASP.NET MVC)
 
 ### Endpoint: `/NC/AttendanceNotice/GenerateExcel`
 
@@ -228,6 +228,10 @@ private void AddDataRows(ExcelWorksheet worksheet, DataTable table)
 }
 ```
 
+
+## Overview(Previous Version)
+
+The previous version relied solely on client-side JavaScript and third-party plugins for Excel file generation, while the updated approach integrates server-side processing for more sophisticated validation, error handling, and improved user interaction.
 
 # Function: DownloadExcelFile()
 
